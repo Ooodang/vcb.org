@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valley Concert Band - Stockton, CA</title>
+    
+    <!-- 1. Tailwind CSS (for styling) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. Vue 3 (for interactivity) -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <!-- 3. Simple Custom Styles (optional) -->
+    <style>
+        /* Small style addition for the hero gradient */
+        .hero-gradient {
+            background: linear-gradient(90deg, rgba(29, 78, 216, 0.9), rgba(107, 33, 168, 0.9));
+        }
+        
+        /* Adds a simple transition for the mobile menu */
+        .mobile-menu {
+            transition: max-height 0.3s ease-out, opacity 0.2s ease-out;
+        }
+    </style>
+    <script>
+        // Custom Tailwind theme configuration
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+
+    <!-- This main div is the Vue 3 application -->
+    <div id="app" class="flex flex-col min-h-screen">
+
+        <!-- Header & Navigation -->
+        <header class="bg-white shadow-md sticky top-0 z-50">
+            <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <!-- Logo / Band Name -->
+                <a href="#" class="text-2xl font-bold text-blue-800 hover:text-purple-700 transition duration-300">
+                    Valley Concert Band
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="#about" class="text-gray-600 hover:text-blue-700 transition">About Us</a>
+                    <a href="#events" class="text-gray-600 hover:text-blue-700 transition">Events</a>
+                    <a href="#support" class="text-gray-600 hover:text-blue-700 transition">Support Us</a>
+                    <a href="#contact" class="text-gray-600 hover:text-blue-700 transition">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button (Hamburger) -->
+                <div class="md:hidden">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-gray-700 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path v-if="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                            <path v-if="mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+
+            <!-- Mobile Menu (Dropdown) -->
+            <!-- This menu is toggled by Vue's `mobileMenuOpen` state -->
+            <div v-if="mobileMenuOpen" class="md:hidden bg-white shadow-lg mobile-menu" 
+                 :class="{ 'max-h-96 opacity-100': mobileMenuOpen, 'max-h-0 opacity-0 overflow-hidden': !mobileMenuOpen }">
+                <a href="#about" @click="mobileMenuOpen = false" class="block px-6 py-3 text-gray-600 hover:bg-gray-100">About Us</a>
+                <a href="#events" @click="mobileMenuOpen = false" class="block px-6 py-3 text-gray-600 hover:bg-gray-100">Events</a>
+                <a href="#support" @click="mobileMenuOpen = false" class="block px-6 py-3 text-gray-600 hover:bg-gray-100">Support Us</a>
+                <a href="#contact" @click="mobileMenuOpen = false" class="block px-6 py-3 text-gray-600 hover:bg-gray-100">Contact</a>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow">
+
+            <!-- Hero Section -->
+            <section class="relative text-white py-24 md:py-32 px-6 hero-gradient">
+                <div class="container mx-auto text-center">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4">Music for the Community</h1>
+                    <p class="text-xl md:text-2xl mb-8 font-light">Supporting Stockton's Young Musicians</p>
+                    <a href="#support" class="bg-white text-blue-800 font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300 text-lg">
+                        Support Our Mission
+                    </a>
+                </div>
+                <!-- You could add a background image here: style="background-image: url(...)" -->
+            </section>
+
+            <!-- About Us Section -->
+            <section id="about" class="container mx-auto px-6 py-20">
+                <div class="md:grid md:grid-cols-2 md:gap-12 items-center">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800 mb-6">About the Valley Concert Band</h2>
+                        <p class="text-lg text-gray-600 mb-4">
+                            Welcome! The Valley Concert Band, Inc. is a non-profit benefit corporation based right here in Stockton, CA. 
+                            We are a passionate group of community musicians dedicated to sharing our love of music.
+                        </p>
+                        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Our Mission</h3>
+                        <p class="text-lg text-gray-600">
+                            Our primary goal is to raise funds to help give private music lessons to promising students in grades 7-12 
+                            in our public schools. We believe every talented student deserves the chance to grow their skills, 
+                            regardless of their financial situation.
+                        </p>
+                    </div>
+                    <div class="mt-10 md:mt-0">
+                        <!-- Placeholder image -->
+                        <img src="https://placehold.co/600x400/a3bfb8/333333?text=Students+Playing+Music" alt="Students playing music" class="rounded-lg shadow-xl w-full h-auto">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Events Section -->
+            <section id="events" class="bg-gray-100 py-20">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-10 text-center">Upcoming Events</h2>
+                    
+                    <!-- This list is rendered by Vue -->
+                    <div v-if="events.length > 0" class="max-w-2xl mx-auto space-y-6">
+                        <div v-for="event in events" :key="event.title" class="bg-white p-6 rounded-lg shadow-md flex items-center space-x-6">
+                            <div class="text-center w-20 flex-shrink-0">
+                                <span class="block text-3xl font-bold text-blue-700">{{ event.day }}</span>
+                                <span class="block text-lg font-medium text-gray-600">{{ event.month }}</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-900">{{ event.title }}</h3>
+                                <p class="text-gray-600">{{ event.location }}</p>
+                                <p class="text-gray-500 text-sm mt-1">{{ event.time }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- This message shows if Vue's event list is empty -->
+                    <div v-else class="text-center">
+                        <p class="text-lg text-gray-600">Our 2025-2026 season is just around the corner. Please check back soon for updates!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Support Us Section -->
+            <section id="support" class="container mx-auto px-6 py-20 text-center">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Support Young Musicians in Stockton</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
+                    Your generous, tax-deductible donations directly fund private music lessons for talented students in our community. 
+                    Help us keep the music playing for the next generation.
+                </p>
+                <!-- This would link to your donation page (e.g., PayPal, GoFundMe) -->
+                <a href="#" class="bg-blue-700 text-white font-bold py-3 px-10 rounded-full hover:bg-blue-800 transition duration-300 text-lg shadow-lg">
+                    Donate Now
+                </a>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer id="contact" class="bg-gray-800 text-gray-300 pt-16 pb-12">
+            <div class="container mx-auto px-6 text-center">
+                <h3 class="text-2xl font-bold text-white mb-4">Get in Touch</h3>
+                <p class="mb-6">Interested in joining the band or have a question? We'd love to hear from you.</p>
+                <a href="mailto:info@valleyconcertband.org" class="text-lg text-blue-300 hover:text-blue-200 transition">
+                    info@valleyconcertband.org
+                </a>
+                
+                <!-- Social media links can go here -->
+                <div class="flex justify-center space-x-6 my-8">
+                    <!-- Example: <a href="#" class="text-gray-400 hover:text-white"><svg>...</svg></a> -->
+                </div>
+
+                <div class="border-t border-gray-700 mt-10 pt-8">
+                    <!-- The year is dynamic, powered by Vue! -->
+                    <p class="text-gray-400">&copy; {{ new Date().getFullYear() }} Valley Concert Band, Inc. All rights reserved.</p>
+                    <p class="text-gray-500 text-sm mt-1">Stockton, CA</p>
+                </div>
+            </div>
+        </footer>
+
+    </div> <!-- End of Vue #app -->
+
+    <!-- 4. The Vue 3 JavaScript Application -->
+    <script>
+        // Use Vue's `createApp` and `ref` (for reactive data)
+        const { createApp, ref } = Vue;
+
+        createApp({
+            setup() {
+                // Reactive data for toggling the mobile menu
+                const mobileMenuOpen = ref(false);
+
+                // Reactive data for the events list
+                // You can easily update this list, and the website will update automatically!
+                const events = ref([
+                    { 
+                        day: '12', 
+                        month: 'NOV', 
+                        title: 'Fall Spectacular Concert', 
+                        location: 'Stockton Community Auditorium',
+                        time: '7:00 PM'
+                    },
+                    { 
+                        day: '10', 
+                        month: 'DEC', 
+                        title: 'Holiday Pops Concert', 
+                        location: 'Faye Spanos Concert Hall, UOP',
+                        time: '3:00 PM'
+                    },
+                    // Add more events here
+                ]);
+
+                // To show the "no events" message, just set this to an empty array:
+                // const events = ref([]);
+
+                // Make the data available to the HTML template
+                return {
+                    mobileMenuOpen,
+                    events
+                };
+            }
+        }).mount('#app'); // Mount the Vue app to the <div id="app">
+    </script>
+
+</body>
+</html>
